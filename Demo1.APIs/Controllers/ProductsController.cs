@@ -1,6 +1,7 @@
 ﻿using Demo1.Core.Entities;
 using Demo1.Core.Interfaces;
 using Demo1.Core.Interfaces.Repositories;
+using Demo1.Core.Specifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace Demo1.APIs.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetAllProducts()
 		{
-			return Ok(await _unitOfWork.ProductRepo.GetAllAsync());
+			var specs = new ProductWithTypeAndCategorySpecification();
+			return Ok(await _unitOfWork.ProductRepo.GetAllBySpecsAsync(specs));
 		}
 
 		[HttpGet("{id}")]
