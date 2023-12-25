@@ -20,15 +20,17 @@ namespace Demo1.APIs
 
             using var ServiceScope = kestrel.Services.CreateScope();
             var services = ServiceScope.ServiceProvider;
-            var logger = services.GetRequiredService<ILogger<Program>>();
+			var loggerFactory = services.GetRequiredService<ILoggerFactory>();
             try
             {
                 var DbCtx = services.GetRequiredService<CompanyContext>();
 
                 await DbCtx.Database.MigrateAsync();
+                await CompanySeedContext.SeedAsync(DbCtx, loggerFactory);
             }
             catch (Exception ex) 
             {
+                var logger = loggerFactory.CreateLogger<Program>();
                 logger.LogError("Proram.cs", ex.Message);
             }
 
