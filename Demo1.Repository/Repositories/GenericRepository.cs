@@ -1,5 +1,6 @@
 ﻿using Demo1.Core.Entities;
 using Demo1.Core.Interfaces.Repositories;
+using Demo1.Core.Interfaces.Specifications;
 using Demo1.Repository.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,5 +26,15 @@ namespace Demo1.Repository.Repositories
 		public async Task<T> GetByIdAsync(int id)
 			=>	 await dbCtx.Set<T>().FindAsync(id);
 		
+		public async Task<IEnumerable<T>> GetAllBySpecsAsync(ISpecification<T> specs)
+		{
+			return await SpecificationEvaluator<T>.BuildQuery(dbCtx.Set<T>(), specs).ToListAsync();
+		}
+
+		public async Task<T> GetBySpecsAsync(ISpecification<T> specs)
+		{
+			return await SpecificationEvaluator<T>.BuildQuery(dbCtx.Set<T>(), specs).FirstOrDefaultAsync();
+		}
+
 	}
 }

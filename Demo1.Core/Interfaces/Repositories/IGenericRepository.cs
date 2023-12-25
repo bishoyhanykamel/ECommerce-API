@@ -1,4 +1,5 @@
 ﻿using Demo1.Core.Entities;
+using Demo1.Core.Interfaces.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Demo1.Core.Interfaces.Repositories
 		Task<IEnumerable<T>> GetAllAsync();
 		Task<T> GetByIdAsync(int id);
 
-		//Task<IEnumerable<T>> GetAllBySpecsAsync();
-		//Task<T> GetBySpecs();
+		Task<IEnumerable<T>> GetAllBySpecsAsync(ISpecification<T> specs);
+		Task<T> GetBySpecsAsync(ISpecification<T> specs);
 	}
 }

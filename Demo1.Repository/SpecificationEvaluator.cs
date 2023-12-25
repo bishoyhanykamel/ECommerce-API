@@ -12,7 +12,7 @@ namespace Demo1.Repository
 {
 	public class SpecificationEvaluator<T>  where T : BaseEntity
 	{
-		public IQueryable<T> BuildQuery(IQueryable<T> mainQuery, ISpecification<T> specs)
+		public static IQueryable<T> BuildQuery(IQueryable<T> mainQuery, ISpecification<T> specs)
 		{
 			var GeneratedQuery = mainQuery;
 
