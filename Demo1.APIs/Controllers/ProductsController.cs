@@ -36,7 +36,10 @@ namespace Demo1.APIs.Controllers
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetProductById(int id)
 		{
-			return Ok(await _unitOfWork.ProductRepo.GetByIdAsync(id));
+			var specs = new ProductWithTypeAndCategorySpecification(P => P.Id == id);
+			var product = await _unitOfWork.ProductRepo.GetBySpecsAsync(specs);
+			var productDto = _mapper.Map<Product, ProductDto>(product);
+			return Ok(productDto);
 		}
 	}
 }
