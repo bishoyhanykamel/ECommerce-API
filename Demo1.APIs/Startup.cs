@@ -1,4 +1,8 @@
+using Demo1.Core.Entities;
+using Demo1.Core.Interfaces;
+using Demo1.Core.Interfaces.Repositories;
 using Demo1.Repository.Data.DbContexts;
+using Demo1.Repository.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,6 +43,8 @@ namespace Demo1.APIs
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
