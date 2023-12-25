@@ -17,10 +17,16 @@ namespace Demo1.APIs.Controllers
 			this._unitOfWork = unitOfWork;
 		}
 
-		//[HttpGet]
-		//public async Task<IActionResult> GetAllProducts()
-		//{
-		//	return Ok(await _unitOfWork.ProductRepo.GetAllAsync());
-		//}
+		[HttpGet]
+		public async Task<IActionResult> GetAllProducts()
+		{
+			return Ok(await _unitOfWork.ProductRepo.GetAllAsync());
+		}
+
+		[HttpGet("{id}")]
+		public async Task<IActionResult> GetProductById(int id)
+		{
+			return Ok(await _unitOfWork.ProductRepo.GetByIdAsync(id));
+		}
 	}
 }
