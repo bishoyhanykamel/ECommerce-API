@@ -1,3 +1,4 @@
+using Demo1.APIs.Extensions;
 using Demo1.APIs.Helpers.Mappers;
 using Demo1.Core.Entities;
 using Demo1.Core.Interfaces;
@@ -44,9 +45,7 @@ namespace Demo1.APIs
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<IGenericRepository<Product>, GenericRepository<Product>>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddAutoMapper(typeof(MapperProfiles));
+            services.AddAppServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
