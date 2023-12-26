@@ -9,8 +9,9 @@ namespace Demo1.APIs.Helpers.Mappers
         public MapperProfiles()
         {
             CreateMap<Product, ProductDto>()
-                .ForMember(dto => dto.Brand, obj => obj.MapFrom(product => product.ProductBrand.Name))
-                .ForMember(dto => dto.Type, obj => obj.MapFrom(product => product.ProductType.Name));
+                .ForMember(dto => dto.Brand, options => options.MapFrom(product => product.ProductBrand.Name))
+                .ForMember(dto => dto.Type, options => options.MapFrom(product => product.ProductType.Name))
+                .ForMember(dto => dto.PictureUrl, options => options.MapFrom<PictureUrlResolver>());
         }
     }
 }
